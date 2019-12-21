@@ -1,15 +1,14 @@
-require 'set'
+class EmailAddressParser
+  attr_accessor :csv_emails
 
-class EmailParser
-
-
-  attr_reader :emails
-
-  def initialize(emails)
-    @emails = emails
+  def initialize(csv_emails)
+    @csv_emails = csv_emails
   end
 
   def parse
-    @emails.split(/[,\s]+/).map{|x| x.strip}.to_set.to_a
+    csv_emails.split.collect do |address|
+      address.split(',')
+    end
+    .flatten.uniq
   end
 end
